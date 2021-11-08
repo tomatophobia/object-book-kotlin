@@ -6,19 +6,31 @@ class Bag(private var amount: Long) {
         this.invitation = invitation
     }
 
-    fun hasInvitation(): Boolean {
+    private fun hasInvitation(): Boolean {
         return invitation != null;
+    }
+
+    private fun minusAmount(amount: Long): Unit {
+        this.amount -= amount
+    }
+
+    private fun plusAmount(amount: Long): Unit {
+        this.amount += amount
+    }
+
+    fun hold(ticket: Ticket): Long {
+        if (hasInvitation()) {
+            this.ticket = ticket
+            return 0
+        } else {
+            this.ticket = ticket
+            minusAmount(ticket.fee)
+            return ticket.fee
+        }
     }
 
     fun hasTicket(): Boolean {
         return ticket != null
     }
 
-    fun minusAmount(amount: Long): Unit {
-        this.amount -= amount
-    }
-
-    fun plusAmount(amount: Long): Unit {
-        this.amount += amount
-    }
 }
